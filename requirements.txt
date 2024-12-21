@@ -1,1 +1,1 @@
-openai
+pip3 install openai
