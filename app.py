@@ -1,8 +1,11 @@
 import streamlit as st
 import openai
+import os
+from dotenv import load_dotenv
 
-# OpenAI API 키 설정
-openai.api_key = "YOUR_OPENAI_API_KEY"
+# .env 파일에서 API 키 불러오기
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # 웹페이지 기본 설정
 st.set_page_config(page_title="AI 친구와 대화하기", layout="wide")
@@ -21,7 +24,7 @@ def get_response(user_input):
             model="gpt-4",
             messages=[{"role": "user", "content": user_input}]
         )
-        return response.choices[0].message["content"]
+        return response.choices[0].message.content 
     except Exception as e:
         return f"오류가 발생했습니다: {e}"
 
